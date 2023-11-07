@@ -13,8 +13,8 @@ const MealType = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        axios.post("http://localhost:8080/api/filter", { lcost: formData.lcost, location: formData.location, hcost: formData.hcost, cuisine: formData.cuisine, mealtype: mealName, sort: formData.sort, page: formData.page }).then((res) => setFilteredData(res.data.result))
-        axios.post("http://localhost:8080/api/filter", { lcost: formData.lcost, location: formData.location, hcost: formData.hcost, cuisine: formData.cuisine, mealtype: mealName, sort: formData.sort, page: formData.page }).then((res) => setFilteredFullData(res.data.full))
+        axios.post("https://backend-zom.onrender.com/api/filter", { lcost: formData.lcost, location: formData.location, hcost: formData.hcost, cuisine: formData.cuisine, mealtype: mealName, sort: formData.sort, page: formData.page }).then((res) => setFilteredData(res.data.result))
+        axios.post("https://backend-zom.onrender.com/api/filter", { lcost: formData.lcost, location: formData.location, hcost: formData.hcost, cuisine: formData.cuisine, mealtype: mealName, sort: formData.sort, page: formData.page }).then((res) => setFilteredFullData(res.data.full))
     }, [formData, mealName])
 
     if (filteredFullData.length) {
@@ -32,13 +32,14 @@ const MealType = () => {
             <Navbar />
             <div className='px-5 py-4'>
                 <h3 className='fs-1 fw-bold' style={{ color: "#192F60" }}><span>{mealName.charAt(0).toUpperCase()}{mealName.slice(1)}</span> Places in India</h3>
-                <div className='d-flex gap-4 mt-4' style={{ height: "40rem" }}>
-                    <div className='h-full col-3 rounded shadowx p-2'>
+                <div className='d-flex gap-4 grid-item mt-4' style={{ height: "40rem" }}>
+                    <div className='h-full col-12 col-md-3 rounded shadowx filter_toggle' data-bs-toggle="collapse" data-bs-target="#collapseExample">
+                        <h4 style={{ color: "#192F60" }} className='py-2 mt-1 px-2'>Filters/Sort</h4>
                         <Filters />
                     </div>
-                    <div className='col-9 d-flex flex-column justify-content-between gap-4'>
+                    <div className='col-lg-9  d-flex flex-column justify-content-between gap-4'>
                         {
-                            filteredData ?
+                            filteredData.length ?
                                 filteredData.map((item, i) => {
                                     return <div key={i} className='rounded shadowx p-4' role='button' onClick={() => { setNavid(item._id); navigate(`/restaurant/${item._id}`) }}>
                                         <div className='mb-4 d-flex gap-4 items-center'>
@@ -64,7 +65,9 @@ const MealType = () => {
                                             </div>
                                         </div>
                                     </div>
-                                }) : "8"
+                                }) : <>
+                                    <div className='text-center fs-2 shadowx rounded p-5 h-50 align-middle' style={{ color: "#192F60" }}>No results found</div>
+                                </>
                         }
                         <div className='justify-self-bottom text-center p-2' >
                             <span className='border px-3 py-2 mx-2 ' role='button' > &#60;</span>

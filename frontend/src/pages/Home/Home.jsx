@@ -11,7 +11,7 @@ const Home = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        axios.get("http://localhost:8080/api/meal").then((res) => setMealData(res.data))
+        axios.get("https://backend-zom.onrender.com/api/meal").then((res) => setMealData(res.data))
         setFormData({
             location: "",
             cuisine: "",
@@ -34,8 +34,8 @@ const Home = () => {
                     <p className='text-white mt-4 fw-semibold fs-1'>Find the best restaurants, cafés, and bars</p>
                 </div>
                 <div>
-                    <input type="search" placeholder='Please type a location' className='border-0 me-3 p-2' style={{ outline: "none", width: "15rem" }} />
-                    <input type="search" placeholder='Search for restaurants' className='border-0 p-2' style={{ outline: "none", width: "32rem" }} />
+                    <input type="search" placeholder='Please type a location' className='border-0 me-3 p-2 res_input' style={{ outline: "none", width: "15rem" }} />
+                    <input type="search" placeholder='Search for restaurants' className='border-0 p-2 res_input' style={{ outline: "none", width: "32rem" }} />
                 </div>
             </header>
             <Modal />
